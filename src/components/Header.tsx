@@ -17,9 +17,9 @@ export default function Header() {
           <Image
             src="/images/reo-logo.svg"
             alt="Reo.pl"
-            width={120}
-            height={40}
-            className="h-10 w-auto"
+            width={150}
+            height={50}
+            className="h-12 w-auto"
             priority
           />
         </Link>
@@ -108,9 +108,13 @@ export default function Header() {
           {!isLoggedIn ? (
             <button 
               onClick={() => setIsLoggedIn(true)}
-              className="flex items-center gap-2 font-semibold text-[16px] text-[#201B55] border-2 border-[#201B55] hover:bg-[#201B55] hover:text-white transition-all duration-300 px-6 py-2.5 rounded-lg focus:outline-none"
+              className="group flex items-center justify-center gap-3 font-extrabold text-[15px] text-[#201B55] border-[2px] border-[#29226B] hover:bg-[#201B55] hover:text-white transition-all duration-300 px-6 py-2.5 rounded-2xl focus:outline-none shadow-sm hover:shadow-md hover:scale-105 active:scale-95"
             >
-              <LogIn className="w-[18px] h-[18px]" />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="opacity-80 group-hover:opacity-100 transition-opacity">
+                 <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                 <polyline points="10 17 15 12 10 7" />
+                 <line x1="15" y1="12" x2="3" y2="12" />
+              </svg>
               Zaloguj się
             </button>
           ) : (
@@ -124,8 +128,8 @@ export default function Header() {
               <div className="absolute top-full right-0 mt-0 pt-4 w-60 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
                 <div className="bg-white rounded-lg shadow-[0_10px_40px_-10px_rgba(30,26,59,0.15)] border border-slate-100 overflow-hidden">
                   <div className="p-4 border-b border-slate-50 bg-slate-50/50">
-                    <p className="font-bold text-[#201B55] text-sm">Aureliusz Górski</p>
-                    <p className="text-xs text-slate-500 mt-0.5">aureliusz@reo.pl</p>
+                    <p className="font-bold text-[#201B55] text-sm">Jan Kowalski</p>
+                    <p className="text-xs text-slate-500 mt-0.5">jan.kowalski@reo.pl</p>
                   </div>
 
                   {/* Dashboard Links */}

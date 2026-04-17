@@ -44,7 +44,7 @@ export default function Footer() {
             {/* Top Header Row of Footer */}
             <div className="flex flex-col md:flex-row items-end justify-between border-b border-white/10 pb-8 mb-8">
               <div className="flex items-center gap-6 mt-4 md:mt-0">
-                <small className="hidden lg:block text-slate-300 text-sm font-medium ml-48">
+                <small className="hidden lg:block text-slate-300 text-sm font-medium">
                   Reo.pl należy do Grupy <a href="https://www.enerconet.com/" target="_blank" className="font-bold underline text-white hover:text-[#A9E8CB] transition-colors">EnercoNet</a>
                 </small>
               </div>

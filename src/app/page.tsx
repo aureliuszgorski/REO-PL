@@ -6,13 +6,14 @@ import Workflow from "@/components/home/Workflow";
 import AnimatedStats from "@/components/home/AnimatedStats";
 import NetworkAnimation from "@/components/home/NetworkAnimation";
 import Calculator from "@/components/home/Calculator";
-import EsgNews from "@/components/home/EsgNews";
+import HomeKnowledgeBase from "@/components/home/HomeKnowledgeBase";
+
 import Partners from "@/components/home/Partners";
 import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col overflow-x-hidden">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
       <Header />
       
       <main className="flex-1 flex flex-col w-full">
@@ -28,7 +29,7 @@ export default function Home() {
            <Calculator />
         </div>
         
-        <EsgNews />
+        <HomeKnowledgeBase />
         <Partners />
       </main>
 

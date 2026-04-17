@@ -13,17 +13,17 @@ export default function Partners() {
   return (
     <section className="py-12 bg-white border-t border-slate-100 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-        <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-8 lg:gap-16">
-          <h3 className="text-3xl md:text-4xl font-extrabold text-[#201B55] whitespace-nowrap">
+        <div className="flex flex-col xl:flex-row items-center justify-between gap-8 lg:gap-16 w-full">
+          <h3 className="text-3xl md:text-4xl font-extrabold text-[#201B55] whitespace-nowrap lg:pr-10">
             Partnerzy
           </h3>
           
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-6 md:gap-10 lg:gap-16 w-full">
+          <div className="flex flex-wrap items-center justify-between w-full flex-1 gap-6">
             {partners.map((partner, idx) => (
               <Link 
                 href={`#${partner.alt.toLowerCase().replace(/\s+/g, '-')}`}
                 key={idx} 
-                className="relative w-[150px] md:w-[160px] h-[60px] md:h-[70px] flex items-center justify-center"
+                className="relative w-[130px] md:w-[150px] lg:w-[160px] h-[60px] md:h-[70px] flex items-center justify-center shrink-0"
               >
                 <img
                   src={partner.src}

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
+
 import { useEffect, useRef, useState } from "react";
 import { Zap, CircleDollarSign, CheckCircle2 } from "lucide-react";
 
@@ -56,39 +57,135 @@ function LiveNumber({ target, decimals = 0, flutter = true }: { target: number, 
   );
 }
 
+function SavingsCounter() {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    const startDate = new Date('2025-01-01T00:00:00Z').getTime();
+    const ratePerMs = 80000 / (24 * 60 * 60 * 1000);
+    
+    let currentTarget = (new Date().getTime() - startDate) * ratePerMs;
+    setDisplayValue(currentTarget);
+
+    let timeoutId: NodeJS.Timeout;
+
+    const updateIrregularly = () => {
+      // Wyliczamy faktyczną poprawną wartość w czasie rzeczywistym
+      const realExpected = (new Date().getTime() - startDate) * ratePerMs;
+      
+      setDisplayValue(prev => {
+         // Chcemy większe nierówne skoki (od kilku do kilkunastu PLN), żeby było widoczne
+         // Algorytm musi gonić realExpected, ale w losowych transzach.
+         const difference = realExpected - prev;
+         
+         // Jeżeli nagle aplikacja była w tle, nadrabiamy.
+         if (difference > 100) return realExpected;
+         
+         // Zwykły tick: wylosuj skok, ale upewnij się, że nie odstajemy mocno od realExpected.
+         // Ponieważ 80k dziennie to 0.9 PLN/s, żeby skoki zadowalały oko, dodajemy lekki szum.
+         const jump = Math.max(0, difference + (Math.random() * 5));
+         return prev + jump;
+      });
+
+      // Następny skok za 1.5 - 4.5 sekundy (generuje nierównomierność)
+      const nextDelay = 1500 + Math.random() * 3000; 
+      timeoutId = setTimeout(updateIrregularly, nextDelay);
+    };
+
+    timeoutId = setTimeout(updateIrregularly, 1000);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  return (
+    <span className="tabular-nums font-mono tracking-tight">
+      {displayValue.toLocaleString('pl-PL', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).replace(/,/g, ' ')}
+    </span>
+  );
+}
+
+function GrowingGwhCounter() {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    // Od momentu 1 Stycznia 2025 roku wartość wynosiła około 1943.4
+    // Rośnie o powiedzmy 3.5 GWh dziennie
+    const startDate = new Date('2025-01-01T00:00:00Z').getTime();
+    const baseValue = 1943.4;
+    const ratePerMs = 3.5 / (24 * 60 * 60 * 1000); // Wzrost za jedną milisekundę
+    
+    let currentTarget = baseValue + (new Date().getTime() - startDate) * ratePerMs;
+    setDisplayValue(currentTarget);
+
+    let timeoutId: NodeJS.Timeout;
+
+    const updateIrregularly = () => {
+      // Wyliczamy faktyczną poprawną wartość w czasie rzeczywistym
+      const realExpected = baseValue + (new Date().getTime() - startDate) * ratePerMs;
+      
+      setDisplayValue(prev => {
+         const difference = realExpected - prev;
+         if (difference > 1) return realExpected;
+         
+         const jump = Math.max(0, difference + (Math.random() * 0.05));
+         return prev + jump;
+      });
+
+      // Następny skok cyferki za 2 do 5 sekund
+      const nextDelay = 2000 + Math.random() * 3000; 
+      timeoutId = setTimeout(updateIrregularly, nextDelay);
+    };
+
+    timeoutId = setTimeout(updateIrregularly, 1000);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  return (
+    <span className="tabular-nums">
+      {displayValue.toLocaleString('pl-PL', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
+    </span>
+  );
+}
+
 export default function AnimatedStats() {
   return (
     <section className="py-24 px-6 md:px-[5%] relative overflow-hidden bg-slate-50 font-sans">
+  {/* Wind farm icons added on right side */}
+  <div className="absolute right-0 top-1/3 w-48 h-48 opacity-30">
+    <svg viewBox="0 0 100 100" className="w-full h-full" fill="none" stroke="#A9E8CB" strokeWidth="2">
+      <path d="M10 80 L30 20 L50 80 Z" />
+      <path d="M30 80 L50 20 L70 80 Z" />
+    </svg>
+  </div>
       <div className="max-w-7xl mx-auto">
         
-        {/* Tytuł ukryty dla Mobile w układzie gridu, widoczny normalnie we Flexie, 
-            ale na makiecie tytuł to jeden z kafelków. Zbudujemy układ Bento za pomocą CSS Grid. */}
-            
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[220px]">
           
-          {/* KAFELEK 1: 376,9 MW (Photo Background) */}
+          {/* KAFELEK 1: 371.3 MW (Graphical Abstract Background) */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-1 lg:row-span-1 rounded-[32px] rounded-tr-none relative overflow-hidden bg-slate-200 group flex items-end justify-end p-8"
+            className="lg:col-span-1 lg:row-span-1 rounded-[32px] rounded-tr-none relative overflow-hidden bg-gradient-to-br from-[#1D71B8] to-[#120F36] group flex items-end justify-end p-8"
           >
             {/* Folder Cutout Top-Right */}
             <div className="absolute top-0 right-0 w-12 h-12 bg-slate-50 rounded-bl-[28px] z-20 pointer-events-none translate-x-[1px] -translate-y-[1px]" />
             
             <div className="absolute inset-0 z-0">
-              <img 
-                src="https://images.unsplash.com/photo-1504851149312-7a075b496cc7?w=800&q=80" 
-                alt="Compass in mountains" 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
+               {/* Abstract Graphical Elements */}
+               {/* Gauge Graphic Background / Speedometer */}
+               <svg viewBox="0 0 200 100" preserveAspectRatio="none" className="w-full h-full opacity-30 group-hover:opacity-50 transition-opacity duration-700 pointer-events-none absolute bottom-0 left-0">
+                  <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#A9E8CB" strokeWidth="2" strokeDasharray="4 8" />
+                  <path d="M 40 100 A 60 60 0 0 1 160 100" fill="none" stroke="#201B55" strokeWidth="10" opacity="0.5" />
+                  <circle cx="100" cy="100" r="8" fill="#A9E8CB" />
+                  <path d="M 100 100 L 140 40" stroke="#A9E8CB" strokeWidth="4" strokeLinecap="round" className="animate-[pulse_3s_ease-in-out_infinite] origin-bottom shadow-lg" />
+               </svg>
+               <div className="absolute inset-0 bg-gradient-to-t from-[#120F36]/90 via-[#120F36]/50 to-transparent"></div>
             </div>
             
-            <div className="relative z-10 text-right">
-              <h3 className="text-4xl md:text-5xl font-extrabold text-white leading-none">
-                <LiveNumber target={376.9} decimals={1} /> MW
+            <div className="relative z-10 text-right w-full">
+              <h3 className="text-4xl md:text-5xl font-extrabold text-[#A9E8CB] leading-none drop-shadow-md">
+                <LiveNumber target={371.3} decimals={1} flutter={false} /> MW
               </h3>
               <p className="text-white/80 font-medium mt-2">Łączna moc instalacji OZE</p>
             </div>
@@ -105,11 +202,11 @@ export default function AnimatedStats() {
             {/* Folder Cutout Top-Left */}
             <div className="absolute top-0 left-0 w-16 h-12 bg-slate-50 rounded-br-[28px] z-20 pointer-events-none -translate-x-[1px] -translate-y-[1px]" />
             
-            <div className="relative z-10">
+            <div className="relative z-10 text-right">
               <h3 className="text-5xl md:text-6xl font-extrabold text-[#A9E8CB] leading-none mb-1">
                 <LiveNumber target={498} flutter={false} />
               </h3>
-              <p className="text-white font-medium pl-1">Klientów</p>
+              <p className="text-white font-medium pr-1">Klientów</p>
             </div>
 
             {/* Zbiór Avatarków w formie grafu połączeń */}
@@ -141,20 +238,20 @@ export default function AnimatedStats() {
             </h2>
           </motion.div>
 
-          {/* KAFELEK 4: 2000 GWh (Green Block) */}
+          {/* KAFELEK 4: 1943 GWh (Green Block) */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="lg:col-span-1 lg:row-span-2 rounded-[32px] rounded-bl-none relative overflow-hidden bg-[#EAF9F4] p-8 flex flex-col justify-between"
+            className="lg:col-span-1 lg:row-span-2 rounded-[32px] rounded-bl-none relative overflow-hidden bg-[#EAF9F4] p-8 flex flex-col justify-between group"
           >
             {/* Folder Cutout Bottom-Left */}
             <div className="absolute bottom-0 left-0 w-24 h-12 bg-slate-50 rounded-tr-[28px] z-20 pointer-events-none -translate-x-[1px] translate-y-[1px]" />
             
-            <div className="text-center mt-4">
+            <div className="text-center mt-4 relative z-10">
               <h3 className="text-4xl md:text-5xl font-extrabold text-[#201B55] leading-none mb-6">
-                <LiveNumber target={2000} decimals={0} /> GWh
+                <GrowingGwhCounter /> GWh
               </h3>
               
               <div className="flex items-center justify-center gap-3 mb-6">
@@ -167,7 +264,7 @@ export default function AnimatedStats() {
             </div>
 
             {/* Abstract Graphic Placeholder (Bulb with continuous line) */}
-            <div className="w-full flex justify-center mb-8">
+            <div className="w-full flex justify-center mb-8 relative z-0">
               <svg width="120" height="150" viewBox="0 0 100 150" fill="none" opacity="0.6">
                 <path d="M50 110 C80 110, 80 50, 50 20 C20 50, 20 110, 50 110" stroke="#201B55" strokeWidth="3" fill="none" />
                 <path d="M35 110 Q50 130 65 110" stroke="#201B55" strokeWidth="3" fill="none" />
@@ -177,35 +274,57 @@ export default function AnimatedStats() {
             </div>
           </motion.div>
 
-          {/* KAFELEK 5: 59 Firm (Photo Background) */}
+          {/* KAFELEK 5: 59 Firm (Premium Data Visualization) */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="lg:col-span-2 lg:row-span-1 rounded-[32px] rounded-tl-none relative overflow-hidden bg-slate-300 group p-8 flex flex-col justify-end"
+            className="lg:col-span-2 lg:row-span-1 rounded-[32px] rounded-tl-none relative overflow-hidden bg-gradient-to-br from-[#120F36] to-[#201B55] group p-8 flex flex-col justify-end"
           >
             {/* Folder Cutout Top-Left */}
             <div className="absolute top-0 left-0 w-24 h-16 bg-slate-50 rounded-br-[28px] z-20 pointer-events-none -translate-x-[1px] -translate-y-[1px]" />
             
+            {/* Abstract Graphic Background */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+              {/* Grid Lines */}
+              <div className="absolute inset-0 bg-[linear-gradient(rgba(169,232,203,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(169,232,203,0.05)_1px,transparent_1px)] bg-[size:30px_30px] opacity-30 group-hover:opacity-60 transition-opacity duration-700"></div>
+              
+              {/* Glowing Map Nodes (Abstract) */}
+              <div className="absolute top-1/4 right-[15%] w-3 h-3 bg-[#A9E8CB] rounded-full shadow-[0_0_20px_4px_rgba(169,232,203,0.5)] animate-pulse" style={{ animationDuration: '3s' }}></div>
+              <div className="absolute top-[40%] right-[35%] w-2 h-2 bg-[#A9E8CB] rounded-full shadow-[0_0_15px_3px_rgba(169,232,203,0.4)] animate-pulse" style={{ animationDuration: '4s', animationDelay: '1s' }}></div>
+              <div className="absolute bottom-[30%] right-[10%] w-4 h-4 bg-[#A9E8CB] rounded-full shadow-[0_0_25px_5px_rgba(169,232,203,0.6)] animate-pulse" style={{ animationDuration: '2.5s', animationDelay: '0.5s' }}></div>
+              <div className="absolute bottom-[10%] right-[40%] w-2 h-2 bg-[#A9E8CB] rounded-full shadow-[0_0_10px_2px_rgba(169,232,203,0.3)] animate-pulse" style={{ animationDuration: '3.5s', animationDelay: '2s' }}></div>
+            </div>
+            
             <div className="absolute inset-0 z-0">
-              <img 
-                src="https://images.unsplash.com/photo-1592985684693-e4d6c429e29a?w=1200&q=80" 
-                alt="Wytwórca na platformie" 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+               <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full opacity-20 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none">
+                  <path d="M 85 25 L 65 40 L 60 90 M 65 40 L 90 70 M 60 90 L 30 70 M 30 70 L 65 40" stroke="#A9E8CB" strokeWidth="0.5" fill="none" strokeDasharray="2 2" className="animate-[dash_10s_linear_infinite]" />
+               </svg>
             </div>
 
-            <div className="relative z-10">
-              <h3 className="text-4xl md:text-5xl font-extrabold text-white leading-none mb-1 shadow-sm">
-                59
-              </h3>
-              <p className="text-white/90 font-bold block">Liczba wytwórców na Platformie Reo.pl</p>
+            <div className="relative z-10 w-full flex flex-col md:flex-row md:items-end justify-between gap-4 mt-8">
+              
+              {/* Tech Icon / Badge */}
+              <div className="hidden md:flex w-16 h-16 rounded-full bg-[#A9E8CB]/10 items-center justify-center border border-[#A9E8CB]/30 backdrop-blur-sm self-end">
+                <div className="w-12 h-12 rounded-full border border-[#A9E8CB]/50 flex items-center justify-center relative">
+                   <div className="absolute inset-0 rounded-full border border-[#A9E8CB] animate-ping opacity-20"></div>
+                   <Zap className="w-5 h-5 text-[#A9E8CB]" />
+                </div>
+              </div>
+
+              <div className="pr-2 text-right">
+                <h3 className="text-6xl md:text-7xl font-black text-[#A9E8CB] leading-none mb-2 tracking-tighter drop-shadow-[0_0_15px_rgba(169,232,203,0.3)]">
+                  <LiveNumber target={59} flutter={false} />
+                </h3>
+                <p className="text-white/90 font-medium text-lg md:text-xl max-w-sm ml-auto">
+                  Liczba wytwórców energii na Platformie Reo.pl
+                </p>
+              </div>
             </div>
           </motion.div>
 
-          {/* KAFELEK 6: 1000 GWh (Light Green Wide Block) */}
+          {/* KAFELEK 6: 1016 GWh (Light Green Wide Block) */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -218,7 +337,7 @@ export default function AnimatedStats() {
             
             <div className="relative z-10">
               <h3 className="text-4xl md:text-5xl font-extrabold text-[#201B55] leading-none mb-2">
-                <LiveNumber target={1000} decimals={0} /> GWh
+                <LiveNumber target={1016} decimals={0} flutter={false} /> GWh
               </h3>
               <p className="text-[#201B55] font-bold max-w-[150px]">Łączna produkcja z OZE</p>
             </div>
@@ -231,6 +350,32 @@ export default function AnimatedStats() {
                  <path d="M0 70 Q 20 80 40 70" stroke="#201B55" strokeWidth="2" fill="none" />
               </svg>
             </div>
+          </motion.div>
+
+          {/* KAFELEK 7: Oszczędności (Wpasowane w prawe dolne złącze, 2 kolumny) */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="lg:col-span-2 lg:row-span-1 rounded-[32px] relative overflow-hidden bg-transparent p-8 md:px-10 flex flex-col md:flex-row items-center justify-between"
+          >
+             <div className="z-10 mb-6 md:mb-0 max-w-sm">
+                <h3 className="text-xl md:text-2xl font-black text-[#201B55] mb-2 uppercase tracking-wide">
+                  NASI KLIENCI ZAOSZCZĘDZILI OD 2025 ROKU
+                </h3>
+                <p className="text-slate-500 text-sm font-medium leading-relaxed">
+                  Oszczędności generowane na bieżąco (średnio 80 tys. PLN dziennie dzięki tańszej energii i OZE)
+                </p>
+             </div>
+             
+             {/* Usunięte szare tło z ramką, przesunięte do prawej */}
+             <div className="z-10 whitespace-nowrap ml-auto text-right flex items-baseline gap-2">
+                <div className="text-4xl md:text-5xl font-bold text-[#1D71B8] tracking-widest tabular-nums font-mono">
+                   <SavingsCounter />
+                </div> 
+                <span className="text-xl font-bold text-[#201B55]">PLN</span>
+             </div>
           </motion.div>
 
         </div>

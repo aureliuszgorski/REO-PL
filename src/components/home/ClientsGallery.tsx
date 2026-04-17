@@ -2,7 +2,13 @@
 
 import Image from "next/image";
 
-const logos = [
+interface Logo {
+  src: string;
+  alt: string;
+  invert?: boolean;
+}
+
+const logos: Logo[] = [
   { src: "/storage/cm-damiana_604f2631.png", alt: "Damiana" },
   { src: "/storage/medicover_acef0387.png", alt: "Medicover" },
   { src: "/storage/wellfitness-logo-1_bd1d90cf.png", alt: "Well Fitness" },

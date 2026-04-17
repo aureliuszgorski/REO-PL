@@ -7,7 +7,7 @@ export default function NetworkAnimation() {
   const sources = [
     { id: 's1', label: 'Wielkoskalowe OZE', detail: 'Profil Generacji', path: 'M 180 180 C 350 180, 350 360, 500 360', x: 180, y: 180 },
     { id: 's2', label: 'Farmy Wiatrowe', detail: 'Wolumen i Gwarancje', path: 'M 150 360 C 350 360, 350 360, 500 360', x: 150, y: 360 },
-    { id: 's3', label: 'Magazynowanie', detail: 'Bilansowanie On-site', path: 'M 180 540 C 350 540, 350 360, 500 360', x: 180, y: 540 }
+    { id: 's3', label: 'Magazyny energii', detail: 'Bilansowanie On-site', path: 'M 180 540 C 350 540, 350 360, 500 360', x: 180, y: 540 }
   ];
 
   const buyers = [
@@ -34,7 +34,7 @@ export default function NetworkAnimation() {
       {/* Ciemne tło zgodne z marką Reo (Granat/Slate z odcieniami zieleni) */}
       <div className="absolute inset-0 bg-[#201B55] z-0"></div>
       
-      <div className="relative z-10 w-full max-w-7xl mx-auto grid lg:grid-cols-[400px_1fr] items-center gap-12 px-6 md:px-[5%]">
+      <div className="relative z-10 w-full max-w-7xl mx-auto grid lg:grid-cols-[42%_58%] items-center gap-12 lg:gap-24 px-6 md:px-[5%]">
         
         {/* LEWA STRONA - Profesjonalna Typografia */}
         <motion.div 
@@ -44,13 +44,14 @@ export default function NetworkAnimation() {
           transition={{ duration: 0.8 }}
           className="relative w-full"
         >
-          <div className="inline-flex items-center gap-2.5 rounded-full border border-brand-neon/30 bg-white/5 px-4 py-1.5 text-[10px] font-medium tracking-widest text-[#A9E8CB] uppercase">
-            <div className="h-1.5 w-1.5 rounded-full bg-[#A9E8CB] shadow-[0_0_8px_rgba(24,201,145,0.8)]"></div>
-            Silnik Centralny platformy
-          </div>
+          <img 
+            src="https://reo.pl/images/lider-transformacji-energetycznej.png" 
+            alt="Lider transformacji energetycznej" 
+            className="h-24 md:h-32 w-auto mb-10 opacity-90 hover:opacity-100 transition-opacity" 
+          />
           
-          <h2 className="mt-8 text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight">
-            Infrastruktura rynku <br />
+          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold text-white leading-tight tracking-tight pb-4">
+            Inteligentna infrastruktura rynku <br />
             <motion.span 
               animate={{ 
                 backgroundPosition: ["200% center", "0% center"],
@@ -62,7 +63,7 @@ export default function NetworkAnimation() {
               }}
               transition={{ 
                 backgroundPosition: { duration: 3, repeat: Infinity, ease: "linear" },
-                filter: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                filter: { duration: 4, repeat: Infinity, ease: "easeInOut" }
               }}
               className="inline-block pb-2 -mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#1D71B8] via-[#A9E8CB] to-[#1D71B8] animate-gradient-x bg-[length:200%_auto]"
             >
@@ -70,8 +71,8 @@ export default function NetworkAnimation() {
             </motion.span>
           </h2>
           
-          <p className="mt-6 text-base leading-relaxed text-slate-300 md:text-lg">
-            Zintegrowany ekosystem cyfrowy. Reo.pl to potężne narzędzie, zdejmujące z barków biznesu chaos rozliczeń. Podaż OZE i popyt spotykają się w jednym centralnym punkcie inteligentnego obrotu i bilansowania rynku.
+          <p className="mt-8 text-base leading-relaxed text-slate-300 md:text-lg mb-8">
+            Reo.pl to potężne narzędzie, zdejmujące z barków biznesu chaos rozliczeń. Podaż OZE i popyt spotykają się w jednym centralnym punkcie inteligentnego obrotu i bilansowania rynku.
           </p>
           
         </motion.div>
@@ -126,10 +127,10 @@ export default function NetworkAnimation() {
                 <circle cx={node.x} cy={node.y} r="16" fill="rgba(24,201,145,0.12)" className="animate-pulse" style={{ animationDelay: `${i*0.4}s`, animationDuration: '3s' }} />
                 <circle cx={node.x} cy={node.y} r="4" fill="#201B55" stroke="#A9E8CB" strokeWidth="1.5" />
                 
-                <text x={node.x - 24} y={node.y - 4} fill="#e2e8f0" fontSize="14" fontWeight="400" textAnchor="end" className="tracking-wide">
+                <text x={node.x - 24} y={node.y - 6} fill="#e2e8f0" fontSize="18" fontWeight="400" textAnchor="end" className="tracking-wide">
                   {node.label}
                 </text>
-                <text x={node.x - 24} y={node.y + 12} fill="#A6EBC5" fontSize="10" fontWeight="600" textAnchor="end" className="uppercase tracking-widest opacity-70">
+                <text x={node.x - 24} y={node.y + 14} fill="#A6EBC5" fontSize="12" fontWeight="600" textAnchor="end" className="uppercase tracking-widest opacity-70">
                   {node.detail}
                 </text>
               </g>
@@ -141,10 +142,10 @@ export default function NetworkAnimation() {
                 <circle cx={node.x} cy={node.y} r="16" fill="rgba(255,255,255,0.05)" className="animate-pulse" style={{ animationDelay: `${i*0.4}s`, animationDuration: '3s' }} />
                 <circle cx={node.x} cy={node.y} r="4" fill="#201B55" stroke="#cbd5e1" strokeWidth="1.5" />
                 
-                <text x={node.x + 24} y={node.y - 4} fill="#e2e8f0" fontSize="14" fontWeight="400" textAnchor="start" className="tracking-wide">
+                <text x={node.x + 24} y={node.y - 6} fill="#e2e8f0" fontSize="18" fontWeight="400" textAnchor="start" className="tracking-wide">
                   {node.label}
                 </text>
-                <text x={node.x + 24} y={node.y + 12} fill="#cbd5e1" fontSize="10" fontWeight="600" textAnchor="start" className="uppercase tracking-widest opacity-60">
+                <text x={node.x + 24} y={node.y + 14} fill="#cbd5e1" fontSize="12" fontWeight="600" textAnchor="start" className="uppercase tracking-widest opacity-60">
                   {node.detail}
                 </text>
               </g>

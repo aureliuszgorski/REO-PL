@@ -140,7 +140,7 @@ export const articles: Article[] = [
     "slug": "jak-powstaje-wodor-elektroliza",
     "readTime": "4 min",
     "date": "12 Kwi 2024",
-    "image": "https://images.unsplash.com/photo-1506509971932-5bf58bcbcfa8?w=800&q=80",
+    "image": "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?w=800&q=80",
     "content": "<h2>Zielony Wodór z odnawialnej energii</h2><p>Ekologiczny wodór jako źródło energii to jeden z kierunków rozwoju OZE. Aby było możliwe wykorzystanie go na szeroką skalę, należy jednak zastosować łatwą, wydajną i tanią metodę jego produkcji. Obecnie zielony wodór można pozyskać na jeden z kilku sposobów – jako reforming parowy gazu ziemnego, fotosyntezę, fermentację oraz metodę elektrochemiczną, czyli elektrolizę.</p><p>Najbezpieczniejsze dla planety jest zasilanie elektrolizerów nadwyżkami prądu wyprodukowanymi dzięki turbinom wiatrowym pracującym w nocy.</p>"
   },
   {
@@ -153,5 +153,49 @@ export const articles: Article[] = [
     "date": "20 Sie 2024",
     "image": "https://images.unsplash.com/photo-1558449028-b53a39d100fc?w=800&q=80",
     "content": "<h2>Koniec z inkasentami!</h2><p>Klasyczny odczyt prądu wymaga wizyty inkasenta w domu lub w firmie. Taka osoba sprawdza wskazania licznika energii i na tej podstawie wyliczane są prognozy i wysokość rachunków dla odbiorcy prądu. W Punktach Poboru Energii coraz częściej można spotkać inteligentne liczniki prądu, które ułatwiają cały proces odczytu i sprawiają, że jest on bardziej precyzyjny.</p>"
+  },
+  {
+    "id": "podcast-1",
+    "title": "ReoTalks #12: Przemysł w obliczu transformacji energetycznej",
+    "excerpt": "W dzisiejszym odcinku gościmy eksperta od ESG. Rozmawiamy o tym, jak duże zakłady produkcyjne radzą sobie ze śladem węglowym.",
+    "category": "Podcasty",
+    "slug": "reotalks-12-przemysl-w-obliczu-transformacji",
+    "readTime": "45 min",
+    "date": "22 Wrz 2024",
+    "image": "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=800&q=80",
+    "content": "<h2>Odcinek 12</h2><p>Zapraszamy do wysłuchania najnowszego odcinka naszego podcastu. Dyskutujemy o dyrektywach unijnych, kosztach wdrażania zielonych rozwiązań w fabrykach i szansach na innowacje.</p>"
+  },
+  {
+    "id": "podcast-2",
+    "title": "ReoTalks #11: Przyszłość umów PPA w Polsce",
+    "excerpt": "Czy kontrakty PPA to jedyna droga do taniego prądu? Wyjaśniamy zawiłości prawne i przewidywania rynkowe na lata 2025-2030.",
+    "category": "Podcasty",
+    "slug": "reotalks-11-przyszlosc-umow-ppa",
+    "readTime": "38 min",
+    "date": "05 Wrz 2024",
+    "image": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&q=80",
+    "content": "<h2>Odcinek 11</h2><div class=\"my-8 w-[100%] max-w-[800px] overflow-hidden rounded-2xl border border-slate-100 shadow-sm transition-all hover:shadow-md\"><iframe style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/episode/7fK29mIitvE6ZWeT0dJkE0?utm_source=generator&theme=0\" width=\"100%\" height=\"352\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe></div><p>Umowy PPA stają się coraz bardziej popularne na polskim rynku energii. Jak się przygotować i na co zwrócić uwagę przed podpisaniem kontraktu?</p>"
+  },
+  {
+    "id": "media-1",
+    "title": "Forbes: Jak polskie firmy przechodzą na zieloną energię",
+    "excerpt": "Platforma Reo.pl w najnowszym raporcie Forbes. Eksperci komentują wzrost zainteresowania rynkiem P2P wśród małych i średnich przedsiębiorstw.",
+    "category": "Media o nas",
+    "slug": "forbes-jak-polskie-firmy-przechodza-na-zielona-energie",
+    "readTime": "5 min",
+    "date": "15 Paź 2024",
+    "image": "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800&q=80",
+    "content": "<h2>Wyróżnienie dla Reo.pl</h2><p>Zostaliśmy wspomnieni w najważniejszym dzisiejszym artykule pulsu biznesu. Dziennikarze analizują nasz model biznesowy oparty o blockchain i P2P jako przełomowy dla MŚP w kraju.</p>"
+  },
+  {
+    "id": "media-2",
+    "title": "WNP.pl: Przełom na rynku energii odnawialnej",
+    "excerpt": "Wczorajsza debata panelowa na kongresie gospodarczym z udziałem naszego prezesa odbiła się szerokim echem w prasie branżowej.",
+    "category": "Media o nas",
+    "slug": "wnp-pl-przelom-na-rynku-energii-odnawialnej",
+    "readTime": "3 min",
+    "date": "02 Lis 2024",
+    "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80",
+    "content": "<h2>Debata Gospodarcza</h2><p>Portal WNP opisał wczorajszą debatę na temat barier prawnych w transformacji energetycznej. Przedstawiciele Reo.pl jasno wypowiedzieli się na temat potrzebnego wsparcia dla producentów OZE.</p>"
   }
 ];
