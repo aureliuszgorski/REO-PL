@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .glass-deep {
+    @apply bg-slate-900/40 backdrop-blur-2xl border border-white/5;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 24px 48px -12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+}
