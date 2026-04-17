@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronRight, ChevronDown, CheckCircle2, TrendingDown, RefreshCcw, Network, BoxSelect } from "lucide-react";
+import { ChevronRight, ChevronDown, CheckCircle2, TrendingDown, RefreshCcw, Network, BoxSelect, Activity } from "lucide-react";
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
