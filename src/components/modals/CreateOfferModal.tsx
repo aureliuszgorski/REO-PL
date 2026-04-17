@@ -4,10 +4,17 @@ import { useState } from "react";
 import { X, Check, GraduationCap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+export interface OfferFormData {
+  dateStr?: string;
+  vol?: string;
+  source?: string;
+  price?: number;
+}
+
 interface CreateOfferModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit?: (data: any) => void;
+  onSubmit?: (data?: OfferFormData) => void;
 }
 
 export default function CreateOfferModal({ isOpen, onClose, onSubmit }: CreateOfferModalProps) {

@@ -129,10 +129,10 @@ export default function DashboardPage() {
         onSubmit={(newOfferData) => {
           setOffers([{
             id: 200 + offers.length,
-            dateStr: newOfferData.dateStr || "2025-06-01 - 2026-06-01",
-            vol: `${newOfferData.vol || "50"} MWh`,
-            source: newOfferData.source || "słońce",
-            price: newOfferData.price || 420
+            dateStr: newOfferData?.dateStr || "2025-06-01 - 2026-06-01",
+            vol: `${newOfferData?.vol || "50"} MWh`,
+            source: newOfferData?.source || "słońce",
+            price: newOfferData?.price || 420
           }, ...offers]);
           setModalOpen(false);
         }}
